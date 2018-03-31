@@ -1,0 +1,15 @@
+---
+layout: home
+---
+
+<h1>PDFs</h1
+
+<ul>
+  
+{% for pdf in site.data['pdfs'] %}
+  <li>
+    <a href="file:/{{ pdf.path }}">{{ pdf.path }}</a>
+  </li>
+{% endfor %}
+
+</ul>
