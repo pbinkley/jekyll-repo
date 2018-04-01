@@ -1,15 +1,18 @@
+require 'net/http'
+require 'json'
+
 Jekyll::Hooks.register :site, :post_read do |site|
-  pdfs = []
-  site.config['pdfdirs'].each do |pdfdir|
-    Dir[pdfdir + '/*.pdf'].each do |pdf|
-      file = {}
-      stat = File::Stat.new(pdf)
-      file['path'] = pdf
-      file['size'] = stat.size
-      file['ctime'] = stat.ctime
-      file['mtime'] = stat.mtime
-      pdfs << file
-    end
+  url = site.config['solr']
+  resp = Net::HTTP.get_response(URI.parse(url))
+  data = resp.body
+
+  # we convert the returned JSON data to native Ruby
+  # data structure - a hash
+  result = JSON.parse(data)
+
+  # if the hash has 'Error' as a key, we raise an error
+  if result.has_key? 'Error'
+    raise "web service error"
   end
-  site.data['pdfs'] = pdfs
+  site.data['pdfs'] = result['response']['docs']
 end

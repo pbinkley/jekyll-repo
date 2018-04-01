@@ -6,9 +6,10 @@ layout: home
 
 <ul>
   
-{% for pdf in site.data['pdfs'] %}
+{% assign pdfs = site.data['pdfs'] | sort: 'pdfname' %}
+{% for pdf in pdfs %}
   <li>
-    <a href="file:/{{ pdf.path }}">{{ pdf.path }}</a>
+    <a href="file://{{ site.pdfroot }}/{{ pdf.source }}/{{ pdf.folder }}/{{ pdf.pdfname }}.pdf">{{ pdf.title }}</a>
   </li>
 {% endfor %}
 
