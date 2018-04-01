@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: default
 ---
 
 <h1>PDFs</h1
@@ -8,8 +8,38 @@ layout: home
   
 {% assign pdfs = site.data['pdfs'] | sort: 'pdfname' %}
 {% for pdf in pdfs %}
-  <li>
-    <a href="file://{{ site.pdfroot }}/{{ pdf.source }}/{{ pdf.folder }}/{{ pdf.pdfname }}.pdf">{{ pdf.title }}</a>
+  {% capture dateformat %}
+    {% if pdf.date_precision == 'year' %}
+      %Y
+    {% elsif pdf.date_precision == 'month' %}
+      %B, %Y
+    {% else %}
+      %B %d, %Y
+    {% endif %}
+  {% endcapture %}
+
+  {% capture predate %}
+    {% if pdf.date_type == 'inferred' %}[{% endif %}{% if pdf.date_precision == 'approximate' %}c. {% endif %}
+  {% endcapture %}
+
+  {% capture postdate %}
+    {% if pdf.date_type == 'inferred' %}]{% endif %}
+  {% endcapture %}
+
+  <li id="doc{{ pdf.id }}">
+    <p>{{ predate }}{{ pdf.date | date: dateformat }}{{ postdate }}</p>
+    {% if pdf.pdfname %}
+      <h3><a href="file://{{ site.pdfroot }}/{{ pdf.source }}/{{ pdf.folder }}/{{ pdf.pdfname }}.pdf">{{ pdf.title }}</a></h3>
+      <img src="{{ site.thumbroot }}/{{ pdf.source }}/{{ pdf.folder }}/thumbs/{{ pdf.id }}_001.jpg"/>
+    {% else %}
+      <h3>{{ pdf.title }}</h3>
+    {% endif %}
+    {% if pdf.summary %}
+      <p>{{ pdf.summary }}</p>
+    {% endif %}
+    {% if pdf.summary %}
+      <p>{{ pdf.notes }}</p>
+    {% endif %}
   </li>
 {% endfor %}
 
