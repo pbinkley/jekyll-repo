@@ -1,0 +1,46 @@
+<!-- display a document as a li -->
+
+{% assign doc = include.doc %}
+{% capture dateformat %}
+  {% if doc.date_precision == 'year' %}
+    %Y
+  {% elsif doc.date_precision == 'month' %}
+    %B, %Y
+  {% else %}
+    %B %-d, %Y
+  {% endif %}
+{% endcapture %}
+
+{% capture predate %}
+  {% if doc.date_type == 'inferred' %}[{% endif %}{% if doc.date_certainty == 'approximate' %}c. {% endif %}
+{% endcapture %}
+
+{% capture postdate %}
+  {% if doc.date_type == 'inferred' %}]{% endif %}
+{% endcapture %}
+
+{% capture thisdate %}
+{{- predate | strip_newlines -}}{{- doc.date | date: dateformat | strip_newlines -}}{{- postdate | strip_newlines -}}
+{% endcapture %}
+
+<li id="doc{{ doc.id }}">
+  {% if thisdate != prevdate %}
+    <p class="date">{{ thisdate }}</p>
+    {% assign prevdate = thisdate %}
+  {% endif %}
+
+  {% if doc.pdfname %}
+    <a href="file://{{ site.pdfroot }}/{{ doc.source }}/{{ doc.folder }}/{{ doc.pdfname }}.pdf">
+    <h3>{{ doc.title }}</h3>
+    <img src="{{ site.thumbroot }}/{{ doc.source }}/{{ doc.folder }}/thumbs/{{ doc.id }}_001.jpg"/>
+    </a>
+  {% else %}
+    <h3>{{ doc.title }}</h3>
+  {% endif %}
+  {% if doc.summary %}
+    <p>{{ doc.summary }}</p>
+  {% endif %}
+  {% if doc.summary %}
+    <p>{{ doc.notes }}</p>
+  {% endif %}
+</li>

@@ -1,19 +1,4 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-title: Your awesome title
+title: Binkley Papers
 email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
@@ -30,7 +15,7 @@ theme: minima
 plugins:
   - jekyll-feed
 
-solr: http://localhost:8080/solr/select/?q=source%3Ahgww+AND+folder%3A1923&version=2.2&start=0&rows=25&wt=json&fl=id%2Ctitle%2Cthumbpath%2Csummary%2Cnotes%2Cdate%2Cdate_certainty%2Cdate_precision%2Cdate_type%2Csource%2Cfolder%2Cpdfname
+solr: http://localhost:8080/solr/select/?q=source%3Ahgww+AND+folder%3A1923&version=2.2&start=0&rows=25&wt=json&fl=id%2Ctitle%2Ccreator_exact%2Csummary%2Cnotes%2Cdate%2Cdate_certainty%2Cdate_precision%2Cdate_type%2Csource%2Cfolder%2Cpdfname
 pdfroot: /home/pbinkley/Personal/digitization/rcb-fwb-pdfarchive
 thumbroot: /home/pbinkley/Personal/digitization/rcb-fwb
 

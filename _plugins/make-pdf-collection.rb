@@ -14,5 +14,21 @@ Jekyll::Hooks.register :site, :post_read do |site|
   if result.has_key? 'Error'
     raise "web service error"
   end
-  site.data['pdfs'] = result['response']['docs']
+  docs = result['response']['docs']
+  site.data['docs'] = docs
+
+  # build collection of creators
+  creators = {}
+  docs.each do |doc|
+    if doc['creator_exact']
+      doc['creator_exact'].each do |creator|
+        if creators[creator]
+          creators[creator] << doc
+        else
+          creators[creator] = [doc]
+        end
+      end
+    end
+  end
+  site.data['creators'] = creators
 end

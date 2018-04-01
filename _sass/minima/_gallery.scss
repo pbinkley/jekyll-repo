@@ -1,6 +1,5 @@
-ul {
+ul.docs {
   list-style-type: none;
-  width: 500px;
 }
 
 h3 {
@@ -8,22 +7,27 @@ h3 {
   margin-top: 0;
 }
 
-li img {
+ul.docs li img {
   float: left;
   margin: 0 15px 0 0;
 }
 
-li p {
+ul.docs li p {
   font: 200 16px/1.5 Georgia, Times New Roman, serif;
 }
 
-li {
-  padding: 10px;
-  overflow: auto;
-  margin-top: 20px;
+ul.docs li p.date {
+  font: 200 16px/1.5 Georgia, Times New Roman, serif;
+  font-weight: bold;
 }
 
-li:hover {
+ul.docs li {
+  padding: 10px;
+  overflow: auto;
+  margin-bottom: 20px;
+}
+
+ul.docs li:hover {
   background: #eee;
   cursor: pointer;
 }

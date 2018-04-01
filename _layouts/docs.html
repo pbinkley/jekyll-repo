@@ -1,0 +1,15 @@
+---
+layout: default
+---
+
+<h1>Documents</h1>
+
+<ul class="docs">
+  
+{% assign docs = site.data['docs'] | sort: 'pdfname' %}
+
+{% for doc in docs %}
+  {% include document.html doc=doc %}
+{% endfor %}
+
+</ul>
