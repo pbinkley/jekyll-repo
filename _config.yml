@@ -14,10 +14,19 @@ markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+  - octopress-debugger
+  - pry
 
-solr: http://localhost:8080/solr/select/?q=source%3Ahgww+AND+folder%3A1923&version=2.2&start=0&rows=25&wt=json&fl=id%2Ctitle%2Ccreator_exact%2Csummary%2Cnotes%2Cdate%2Cdate_certainty%2Cdate_precision%2Cdate_type%2Csource%2Cfolder%2Cpdfname
+solr: http://localhost:8080/solr/select/?q=source%3Ahgww+AND+folder%3A1923&version=2.2&start=0&rows=25&wt=json&fl=id%2Ctitle%2Ccreator_exact%2Csummary%2Cnotes%2Cdate%2Cdate_certainty%2Cdate_precision%2Cdate_type%2Csource%2Cfolder%2Cpdfname%2Csubject%2Caddressee_exact
 pdfroot: /home/pbinkley/Personal/digitization/rcb-fwb-pdfarchive
 thumbroot: /home/pbinkley/Personal/digitization/rcb-fwb
+facets:
+  creators:
+    field: creator_exact
+    label: Creators
+  addressees:
+    field: addressee_exact
+    label: Addressees
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

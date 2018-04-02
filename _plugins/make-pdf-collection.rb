@@ -1,5 +1,6 @@
 require 'net/http'
 require 'json'
+require 'pry'
 
 Jekyll::Hooks.register :site, :post_read do |site|
   url = site.config['solr']
@@ -16,19 +17,22 @@ Jekyll::Hooks.register :site, :post_read do |site|
   end
   docs = result['response']['docs']
   site.data['docs'] = docs
-
-  # build collection of creators
-  creators = {}
-  docs.each do |doc|
-    if doc['creator_exact']
-      doc['creator_exact'].each do |creator|
-        if creators[creator]
-          creators[creator] << doc
-        else
-          creators[creator] = [doc]
+  site.config['facets'].keys.each do |collection|
+    facet = site.config['facets'][collection]
+    terms = {}
+    field = facet['field']
+    docs.each do |doc|
+      if doc[field]
+        doc[field].each do |term|
+          if terms[term]
+            terms[term] << doc
+          else
+            terms[term] = [doc]
+          end
         end
       end
     end
+    site.data[collection] = terms
+    site.data[collection + '_keys'] = terms.keys.sort
   end
-  site.data['creators'] = creators
 end
