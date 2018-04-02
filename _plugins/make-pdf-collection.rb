@@ -17,22 +17,21 @@ Jekyll::Hooks.register :site, :post_read do |site|
   end
   docs = result['response']['docs']
   site.data['docs'] = docs
-  site.config['facets'].keys.each do |collection|
-    facet = site.config['facets'][collection]
-    terms = {}
-    field = facet['field']
-    docs.each do |doc|
+  docs.each do |doc|
+    site.config['facets'].keys.each do |collection|
+      site.data[collection] = {} unless site.data[collection]
+      facet = site.config['facets'][collection]
+      terms = {}
+      field = facet['field']
       if doc[field]
         doc[field].each do |term|
-          if terms[term]
-            terms[term] << doc
-          else
-            terms[term] = [doc]
-          end
+          site.data[collection][term] = [] unless site.data[collection][term]
+          site.data[collection][term] << doc
         end
       end
     end
-    site.data[collection] = terms
-    site.data[collection + '_keys'] = terms.keys.sort
+    site.config['facets'].keys.each do |collection|
+      site.data[collection + '_keys'] = site.data[collection].keys.sort
+    end
   end
 end
