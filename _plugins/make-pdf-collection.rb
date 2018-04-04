@@ -1,5 +1,6 @@
 require 'net/http'
 require 'json'
+require 'slugify'
 require 'pry'
 
 Jekyll::Hooks.register :site, :post_read do |site|
@@ -32,6 +33,54 @@ Jekyll::Hooks.register :site, :post_read do |site|
     end
     site.config['facets'].keys.each do |collection|
       site.data[collection + '_keys'] = site.data[collection].keys.sort
+    end
+  end
+end
+
+module Jekyll
+  class FacetPage < Page
+    def initialize(site, base, dir, key, docs)
+      @site = site
+      @base = base
+      @dir = dir
+      @name = key.slugify(true) + '.html'
+
+      self.process(@name)
+      self.read_yaml(File.join(base, '_layouts'), 'docs.html')
+
+      self.data['title'] = key
+      self.data['docs'] = docs
+    end
+  end
+
+  class TOCPage < Page
+    def initialize(site, base, dir, key)
+      @site = site
+      @base = base
+      @dir = dir
+      @name = key.slugify(true) + '.html'
+
+      self.process(@name)
+      self.read_yaml(File.join(base, '_layouts'), 'toc.html')
+
+      self.data['title'] = site.config['facets'][key]['label']
+      self.data['collection'] = key
+    end
+  end
+
+  class FacetPageGenerator < Generator
+    safe true
+
+    def generate(site)
+      if site.layouts.key? 'docs'
+        dir = site.config['facet_dir'] || 'facets'
+        site.config['facets'].each_key do |facet|
+          site.pages << TOCPage.new(site, site.source, dir, facet)
+          site.data[facet].keys.each do |key|
+            site.pages << FacetPage.new(site, site.source, dir, key, site.data[facet][key])
+          end
+        end
+      end
     end
   end
 end

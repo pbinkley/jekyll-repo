@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+<h1>{{ page.title }}</h1>
+
+<ul class="docs">
+  
+{% assign terms = site.data[page.collection] %}
+{% capture termkeycoll %}{{ page.collection }}_keys{% endcapture %}
+{% assign termkeys = site.data[termkeycoll] %}
+
+<h2>Table of Contents</h2>
+<ul class="toc">
+{% for key in termkeys %}
+  {% capture slug %}{{ key | slugify }}{% endcapture %}
+  <li><a href="{{ slug }}.html">{{ key }}</a> 
+  ({{ terms[key] | size }})</li>
+{% endfor %}  
+</ul>
+
+</ul>

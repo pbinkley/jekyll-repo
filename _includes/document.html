@@ -43,4 +43,22 @@
   {% if doc.summary %}
     <p>{{ doc.notes }}</p>
   {% endif %}
+    <p class="links">
+      {% for correspondent in doc.correspondent_exact %}
+        <a href="{{ correspondent | slugify }}.html">{{ correspondent }}</a>
+        {% if forloop.last == false %}
+          |
+        {% endif %} 
+      {% endfor %} <br/>
+      {% if doc.subject %}
+        <b>Subject: </b>
+        {% for subject in doc.subject %}
+          <a href="{{ subject | slugify }}.html">{{ subject }}</a>
+          {% if forloop.last == false %}
+            |
+          {% endif %} 
+        {% endfor %} <br/>
+      {% endif %}
+      <a href="{{ doc.date | date: '%Y-%m' }}.html">{{ doc.date | date: '%B, %Y' }}</a>       
+    </p>
 </li>
