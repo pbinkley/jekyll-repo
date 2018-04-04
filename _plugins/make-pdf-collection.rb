@@ -50,6 +50,7 @@ module Jekyll
 
       self.data['title'] = key
       self.data['docs'] = docs
+      self.data['exclude_from_header'] = true
     end
   end
 
