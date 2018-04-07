@@ -32,7 +32,7 @@
   {% if doc.pdfname %}
     <a href="file://{{ site.pdfroot }}/{{ doc.source }}/{{ doc.folder }}/{{ doc.pdfname }}.pdf">
     <h3>{{ doc.title }}</h3>
-    <img src="{{ site.thumbroot }}/{{ doc.source }}/{{ doc.folder }}/thumbs/{{ doc.id }}_001.jpg"/>
+    <img src="file://{{ site.thumbroot }}/{{ doc.source }}/{{ doc.folder }}/thumbs/{{ doc.id }}_001.jpg"/>
     </a>
   {% else %}
     <h3>{{ doc.title }}</h3>
