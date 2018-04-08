@@ -13,7 +13,8 @@ Jekyll::Hooks.register :site, :post_read do |site|
       'start' => 0,
       'rows' => 10000000,
       'wt' => 'json',
-      'fl' => site.config['solr-fields']
+      'fl' => site.config['solr-fields'],
+      'sort' => 'date asc, date_precision desc'
     }
   }).to_s
   resp = Net::HTTP.get_response(URI.parse(url))
@@ -65,7 +66,8 @@ module Jekyll
           'start' => 0,
           'rows' => 1000000,
           'wt' => 'json',
-          'fl' => 'id'
+          'fl' => 'id',
+          'sort' => 'date asc, date_precision desc'
         }
       }).to_s
       resp = Net::HTTP.get_response(URI.parse(url))

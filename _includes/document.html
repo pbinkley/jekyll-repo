@@ -1,4 +1,3 @@
-<!-- display a document as a li -->
 {% assign doc = site.data.docs[include.docid] %}
 
 {% capture dateformat %}
@@ -11,16 +10,16 @@
   {% endif %}
 {% endcapture %}
 
-{% capture predate %}
+{% capture before-date %}
   {% if doc.date_type == 'inferred' %}[{% endif %}{% if doc.date_certainty == 'approximate' %}c. {% endif %}
 {% endcapture %}
 
-{% capture postdate %}
+{% capture after-date %}
   {% if doc.date_type == 'inferred' %}]{% endif %}
 {% endcapture %}
 
 {% capture thisdate %}
-{{- predate | strip_newlines -}}{{- doc.date | date: dateformat | strip_newlines -}}{{- postdate | strip_newlines -}}
+{{- before-date | strip_newlines -}}{{- doc.date | date: dateformat | strip_newlines -}}{{- after-date | strip_newlines -}}
 {% endcapture %}
 
 <li id="doc{{ doc.id }}">
@@ -38,10 +37,10 @@
     <h3>{{ docid }}: {{ doc.title }}</h3>
   {% endif %}
   {% if doc.summary %}
-    <p>{{ doc.summary }}</p>
+    <p class="summary">{{ doc.summary }}</p>
   {% endif %}
-  {% if doc.summary %}
-    <p>{{ doc.notes }}</p>
+  {% if doc.notes %}
+    <p class="notes">{{ doc.notes }}</p>
   {% endif %}
     <p class="links">
       {% for correspondent in doc.correspondent_exact %}
