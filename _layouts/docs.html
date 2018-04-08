@@ -7,13 +7,8 @@ layout: default
 <ul class="docs">
   
 {% assign docs = page['docs'] %}
-{% if docs == nil %}
-  {% assign docs = site.data['docs'] %}
-{% endif %}
-{% assign docs = docs | sort: 'pdfname' %}
-
-{% for doc in docs %}
-  {% include document.html doc=doc %}
+{% for docid in docs %}
+  {% include document.html docid=docid %}
 {% endfor %}
 
 </ul>

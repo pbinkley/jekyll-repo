@@ -15,12 +15,17 @@ theme: minima
 plugins:
   - jekyll-feed
   - octopress-debugger
+  - addressable
   - pry
 
 #solr: http://localhost:8080/solr/select/?q=source%3Ahgww+AND+folder%3A1923&version=2.2&start=0&rows=25&wt=json&fl=id%2Ctitle%2Ccreator_exact%2Csummary%2Cnotes%2Cdate%2Cdate_certainty%2Cdate_precision%2Cdate_type%2Csource%2Cfolder%2Cpdfname%2Csubject%2Caddressee_exact
-solr: http://localhost:8080/solr/select/?q=source%3A%22misc%22+AND+folder%3A%2269%22&version=2.2&start=0&rows=300&wt=json&fl=id%2Ctitle%2Csummary%2Cnotes%2Cdate%2Cdate_certainty%2Cdate_precision%2Cdate_type%2Csource%2Cfolder%2Cpdfname%2Csubject%2Ccorrespondent_exact
+solr-base: http://localhost:8080/solr
+solr-scope: source:"misc" AND folder:"69"
+solr-fields: id,title,summary,notes,date,date_certainty,date_precision,date_type,source,folder,pdfname,subject,correspondent_exact
+solr-version: "2.2"
+
 pdfroot: /home/pbinkley/Personal/digitization/rcb-fwb-pdfarchive
-thumbroot: /home/pbinkley/Personal/digitization/rcb-fwb
+thumbroot: /home/pbinkley/Personal/digitization/rcb-fwb-thumbs
 facets:
   correspondents:
     field: correspondent_exact
@@ -40,3 +45,6 @@ facets:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+exclude:
+   - README.md
+   - LICENSE

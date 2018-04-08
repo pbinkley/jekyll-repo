@@ -1,6 +1,6 @@
 <!-- display a document as a li -->
+{% assign doc = site.data.docs[include.docid] %}
 
-{% assign doc = include.doc %}
 {% capture dateformat %}
   {% if doc.date_precision == 'year' %}
     %Y
@@ -31,11 +31,11 @@
 
   {% if doc.pdfname %}
     <a href="file://{{ site.pdfroot }}/{{ doc.source }}/{{ doc.folder }}/{{ doc.pdfname }}.pdf">
-    <h3>{{ doc.title }}</h3>
-    <img src="file://{{ site.thumbroot }}/{{ doc.source }}/{{ doc.folder }}/thumbs/{{ doc.id }}_001.jpg"/>
+    <h3>{{ docid }}: {{ doc.title }}</h3>
+    <img src="file://{{ site.thumbroot }}/{{ doc.source }}/{{ doc.folder }}/{{ doc.id }}_001.jpg"/>
     </a>
   {% else %}
-    <h3>{{ doc.title }}</h3>
+    <h3>{{ docid }}: {{ doc.title }}</h3>
   {% endif %}
   {% if doc.summary %}
     <p>{{ doc.summary }}</p>
