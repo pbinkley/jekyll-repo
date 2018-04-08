@@ -30,17 +30,20 @@
 
   {% if doc.pdfname %}
     <a href="file://{{ site.pdfroot }}/{{ doc.source }}/{{ doc.folder }}/{{ doc.pdfname }}.pdf">
-    <h3>{{ docid }}: {{ doc.title }}</h3>
+    <h3>Doc. {{ docid }}: {{ doc.title }}</h3>
     <img src="file://{{ site.thumbroot }}/{{ doc.source }}/{{ doc.folder }}/{{ doc.id }}_001.jpg"/>
     </a>
   {% else %}
-    <h3>{{ docid }}: {{ doc.title }}</h3>
+    <h3>Doc. {{ docid }}: {{ doc.title }}</h3>
   {% endif %}
   {% if doc.summary %}
     <p class="summary">{{ doc.summary }}</p>
   {% endif %}
   {% if doc.notes %}
     <p class="notes">{{ doc.notes }}</p>
+  {% if doc.pages %}
+    <p class="pages">{{ doc.pages }} page{% if doc.pages > 1 %}s{% endif %}</p>
+  {% endif %}
   {% endif %}
     <p class="links">
       {% for correspondent in doc.correspondent_exact %}
