@@ -32,6 +32,9 @@ facets:
   subjects:
     field: subject
     label: Subjects
+  months:
+    field: date_ym
+    label: Months
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

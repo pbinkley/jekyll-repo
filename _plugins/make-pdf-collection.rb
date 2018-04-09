@@ -111,6 +111,7 @@ module Jekyll
     def generate(site)
       if site.layouts.key? 'docs'
 
+        # documents.html (needs to be paginated)
         site.pages << DocumentsPage.new(site, site.source)
 
         targetdir = site.config['facet_dir'] || 'facets'
@@ -146,8 +147,10 @@ module Jekyll
             terms << {term[0] => term[1]}
           end
 
+          # facet menu pages
           site.pages << TOCPage.new(site, site.source, targetdir, facet['label'], terms)
 
+          # facet term pages
           terms.each do |term|
             site.pages << FacetPage.new(site, site.source, targetdir, facet, term.keys.first)
           end
