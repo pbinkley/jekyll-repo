@@ -1,0 +1,15 @@
+---
+layout: default
+---
+
+<div class="home">
+  <div style="width: 50%; float: right">
+    <a href="assets/chess.jpg"><img src="assets/chess.jpg"></a>
+  </div>
+  {%- if site.title -%}
+    <h1 class="page-heading">{{ site.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+
+</div>
